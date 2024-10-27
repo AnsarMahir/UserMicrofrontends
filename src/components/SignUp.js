@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -24,6 +25,8 @@ export default function SignUp(props) {
   const [confirmPasswordError, setConfirmPasswordError] = React.useState(false);
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
     React.useState("");
+
+    const navigate = useNavigate();
 
   const validateInputs = () => {
     const username = document.getElementById("username");
@@ -92,16 +95,21 @@ export default function SignUp(props) {
           body: JSON.stringify(payload),
         });
 
-        if (!response.ok) {
-          throw new Error("Signup failed");
+        const result = await response.json();
+
+        if (response.ok) {
+          // Success - Show an alert and redirect to the verification page
+          alert("Sign-up successful! Please check your email for verification.");
+          navigate("/verify", { state: { username: payload.username } }); // Redirect to the verification page
+        } else {
+          // Error - Show the error message from the BFF
+          alert(`Sign-up failed: ${result.error || "Something went wrong"}`);
         }
-
-        const responseData = await response.json();
-
-        // You can redirect or show a success message here
       } catch (error) {
-        // Handle errors, such as showing an error message to the user
+        // Handle any other errors
+        alert(`An error occurred: ${error.message}`);
       }
+     
     }
   };
 

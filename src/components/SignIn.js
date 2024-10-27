@@ -16,8 +16,8 @@ import ForgotPassword from "./ForgotPassword";
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from "./CustomIcons";
 
 export default function SignIn(props) {
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
+  const [usernameError, setUsernameError] = React.useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -30,24 +30,61 @@ export default function SignIn(props) {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    if (validateInputs()) {
+      try {
+        const data = new FormData(event.currentTarget);
+        const payload = {
+          username: data.get("username"),
+          password: data.get("password"),
+        };
+  
+        const response = await fetch("http://localhost:3000/api/users/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+  
+        const result = await response.json();
+
+        
+        if (response.ok) {
+          if (result.isVerified) {
+            // User is verified, redirect to home
+            sessionStorage.setItem('accessToken', result.accessToken);
+            sessionStorage.setItem('idToken', result.idToken);
+            sessionStorage.setItem('refreshToken', result.refreshToken);
+            window.location.href = "/home";
+          } else {
+            // User is not verified, redirect to verify page with username
+            window.location.href = `/verify?username=${data.get("username")}`;
+          }
+        } else {
+          alert('Sign in error: ' + result.message);
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    }
   };
 
+
   const validateInputs = () => {
-    const email = document.getElementById("email");
+    const username = document.getElementById("username");
     const password = document.getElementById("password");
 
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
+    if (!username.value || username.value.trim() === "") {
+      setUsernameError(true);
+      setUsernameErrorMessage("Please enter a valid username.");
       isValid = false;
     } else {
-      setEmailError(false);
-      setEmailErrorMessage("");
+      setUsernameError(false);
+      setUsernameErrorMessage("");
     }
 
     if (!password.value || password.value.length < 6) {
@@ -94,20 +131,20 @@ export default function SignIn(props) {
             }}
           >
             <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
+              <FormLabel htmlFor="username">Username</FormLabel>
               <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
-                type="email"
-                name="email"
-                placeholder="your@email.com"
-                autoComplete="email"
+                error={usernameError}
+                helperText={usernameErrorMessage}
+                id="username"
+                type="text"
+                name="username"
+                placeholder="your-username"
+                autoComplete="username"
                 autoFocus
                 required
                 fullWidth
                 variant="outlined"
-                color={emailError ? "error" : "primary"}
+                color={usernameError ? "error" : "primary"}
               />
             </FormControl>
             <FormControl>
