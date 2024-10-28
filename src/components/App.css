@@ -1,72 +1,72 @@
 /* Styling for the Verify component */
 #verify-title {
-    font-size: 2.5rem;
-    color: #333;
-    text-align: center;
-    margin-top: 1.5rem;
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-top: 1.5rem;
 }
 
 #verify-instructions {
-    font-size: 1.25rem;
-    color: #666;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    padding: 0 1rem;
+  font-size: 1.25rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
 }
 
 #verify-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #verify-input {
-    padding: 0.75rem;
-    font-size: 1rem;
-    width: 80%;
-    max-width: 400px;
-    margin-bottom: 1.5rem;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  font-size: 1rem;
+  width: 80%;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #verify-username {
-    padding: 0.75rem;
-    font-size: 1rem;
-    width: 80%;
-    max-width: 400px;
-    margin-bottom: 1.5rem;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  font-size: 1rem;
+  width: 80%;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #verify-input:focus {
-    outline: none;
-    border-color: #4caf50;
+  outline: none;
+  border-color: #4caf50;
 }
 
 #verify-submit {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    color: white;
-    background-color: #4caf50;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 #verify-submit:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 #verify-submit:active {
-    background-color: #388e3c;
+  background-color: #388e3c;
 }
 
 #verify-form {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }

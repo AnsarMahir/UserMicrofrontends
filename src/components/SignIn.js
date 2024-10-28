@@ -39,7 +39,7 @@ export default function SignIn(props) {
           username: data.get("username"),
           password: data.get("password"),
         };
-  
+
         const response = await fetch("http://localhost:3000/api/users/login", {
           method: "POST",
           headers: {
@@ -47,30 +47,28 @@ export default function SignIn(props) {
           },
           body: JSON.stringify(payload),
         });
-  
+
         const result = await response.json();
 
-        
         if (response.ok) {
           if (result.isVerified) {
             // User is verified, redirect to home
-            sessionStorage.setItem('accessToken', result.accessToken);
-            sessionStorage.setItem('idToken', result.idToken);
-            sessionStorage.setItem('refreshToken', result.refreshToken);
+            sessionStorage.setItem("accessToken", result.accessToken);
+            sessionStorage.setItem("idToken", result.idToken);
+            sessionStorage.setItem("refreshToken", result.refreshToken);
             window.location.href = "/home";
           } else {
             // User is not verified, redirect to verify page with username
             window.location.href = `/verify?username=${data.get("username")}`;
           }
         } else {
-          alert('Sign in error: ' + result.message);
+          alert("Sign in error: " + result.message);
         }
       } catch (error) {
-        alert('Error: ' + error.message);
+        alert("Error: " + error.message);
       }
     }
   };
-
 
   const validateInputs = () => {
     const username = document.getElementById("username");

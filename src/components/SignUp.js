@@ -26,7 +26,7 @@ export default function SignUp(props) {
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
     React.useState("");
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const validateInputs = () => {
     const username = document.getElementById("username");
@@ -99,7 +99,9 @@ export default function SignUp(props) {
 
         if (response.ok) {
           // Success - Show an alert and redirect to the verification page
-          alert("Sign-up successful! Please check your email for verification.");
+          alert(
+            "Sign-up successful! Please check your email for verification."
+          );
           navigate("/verify", { state: { username: payload.username } }); // Redirect to the verification page
         } else {
           // Error - Show the error message from the BFF
@@ -109,7 +111,6 @@ export default function SignUp(props) {
         // Handle any other errors
         alert(`An error occurred: ${error.message}`);
       }
-     
     }
   };
 
